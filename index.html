@@ -26,12 +26,21 @@
         .header {
             text-align: center;
             margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .header img {
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));
         }
 
         .header h1 {
             font-size: 3rem;
             color: white;
-            margin-bottom: 10px;
             text-shadow: 
                 -2px -2px 0 #000,
                 2px -2px 0 #000,
@@ -286,6 +295,7 @@
     <div class="container">
         <!-- 標題 -->
         <div class="header">
+            <img src="https://www.freepnglogos.com/uploads/apex-legends-logo-png/apex-icon-transparent-logo-red-background-apex-legends-17.png" alt="Apex Legends Logo">
             <h1>Apex Legends</h1>
         </div>
 
@@ -319,7 +329,7 @@
                         <button class="btn btn-deselect-all" onclick="selectAllWeapons(false)">取消全選</button>
                     </div>
                 </div>
-                <div id="weaponsContainer" class="grid"></div>
+                <div id="weaponsContainer"></div>
             </div>
         </div>
 
@@ -363,26 +373,26 @@
         // 數據定義
         const legends = {
             突擊: [
-                { name: '班加羅爾', img: 'https://drop-assets.ea.com/images/59uaaKwAaQVFS2Z5o6JPoM/788687f62d13fdfd3afd71639dcea271/apex-grid-tile-legends-Bangalore.jpg' },
+                { name: '邦加羅爾', img: 'https://drop-assets.ea.com/images/59uaaKwAaQVFS2Z5o6JPoM/788687f62d13fdfd3afd71639dcea271/apex-grid-tile-legends-Bangalore.jpg' },
                 { name: '亡靈', img: 'https://drop-assets.ea.com/images/40px8AHVKdZDFzG0v2IHSl/ae12ef0b2b3aa82d113d06f78885b345/apex-grid-tile-legends-Revenant.jpg' },
                 { name: '轟哥', img: 'https://drop-assets.ea.com/images/1ed5jzmnEE2F3VYADHiAb1/e2a5e038f7fe26d8cd1b6eab882e5247/apex-grid-tile-legends-Fuse.jpg' },
-                { name: '瘋瑪吉', img: 'https://drop-assets.ea.com/images/4X6EN7HLCByvyHbSVi5I6C/c881852cfd2ca864f578134212a23d55/apex-grid-tile-legends-MadMaggie.jpg' },
+                { name: '瘋狂瑪吉', img: 'https://drop-assets.ea.com/images/4X6EN7HLCByvyHbSVi5I6C/c881852cfd2ca864f578134212a23d55/apex-grid-tile-legends-MadMaggie.jpg' },
                 { name: '彈道', img: 'https://drop-assets.ea.com/images/2GzrmZx2WNaOzbrdvxf1XB/f7d4fe018c53977c08347bb4f8d92e0d/apex-grid-tile-legends-Ballistic.jpg' }
             ],
             散兵: [
                 { name: '探路者', img: 'https://drop-assets.ea.com/images/6zanV6x46IQntfmXVJuxWs/08090312744a04dc243b138d0e8fe72a/apex-grid-tile-legends-Pathfinder.jpg' },
                 { name: '惡靈', img: 'https://drop-assets.ea.com/images/4J0UloeNHP6KD21QNrgMcj/cec0cb8949bb3cfe2149a6ca7c2d8a5d/apex-grid-tile-legends-Wraith.jpg' },
-                { name: '動力小子', img: 'https://drop-assets.ea.com/images/15R4OhvkVEF8UgnM2x6iGO/cbfbadf786010c548a900b7cb2cc5960/apex-grid-tile-legends-Octane.jpg' },
-                { name: '地平線', img: 'https://drop-assets.ea.com/images/3wEl6hnRZRfE0kpIhHe16Y/3dc98b90c70516c9a3ee563586c28d63/apex-grid-tile-legends-Horizon.jpg' },
+                { name: '辛烷', img: 'https://drop-assets.ea.com/images/15R4OhvkVEF8UgnM2x6iGO/cbfbadf786010c548a900b7cb2cc5960/apex-grid-tile-legends-Octane.jpg' },
+                { name: '天際線', img: 'https://drop-assets.ea.com/images/3wEl6hnRZRfE0kpIhHe16Y/3dc98b90c70516c9a3ee563586c28d63/apex-grid-tile-legends-Horizon.jpg' },
                 { name: '艾許', img: 'https://drop-assets.ea.com/images/4WVk1SMnlzgjk2E3T7f7HC/2db236ad12e23d7a953fa5278b641d5d/apex-grid-tile-legends-Ash.jpg' },
                 { name: '變換', img: 'https://drop-assets.ea.com/images/2IfZi30O5KjeTbAHqMGPys/dbd942301f0b723e4f3e30ce27569824/apex-grid-tile-legends-Alter.jpg' }
             ],
             偵察: [
-                { name: '尋血獵犬', img: 'https://drop-assets.ea.com/images/57Lw4lAodWsiNYTO1zvT6I/ec740d776b1d24172f5c9ed65f6d71af/apex-grid-tile-legends-Bloodhound.jpg' },
+                { name: '尋血犬', img: 'https://drop-assets.ea.com/images/57Lw4lAodWsiNYTO1zvT6I/ec740d776b1d24172f5c9ed65f6d71af/apex-grid-tile-legends-Bloodhound.jpg' },
                 { name: '暗碼士', img: 'https://drop-assets.ea.com/images/xnWqynrhqueemWjVw44E9/a39d43a0bf4d58a040f3d1a51815f899/apex-grid-tile-legends-Crypto.jpg?im=Resize=(2560)&q=80' },
                 { name: '瓦爾基里', img: 'https://drop-assets.ea.com/images/4FPEvAK1WOqJbMeQhaaGkq/cf3a24ed788f219b79974f20c1ef84f8/apex-grid-tile-legends-Valkyrie.jpg' },
-                { name: '希爾', img: 'https://drop-assets.ea.com/images/4Lv7MVV4qMAK4elah1iZoz/10466b756099f26a00aff51cf23bd2f0/apex-grid-tile-legends-Seer.jpg' },
-                { name: '萬蒂奇', img: 'https://drop-assets.ea.com/images/6wNJrehz7BfFeKFwWINpCD/e25ce64fad589ca8fee6e4024119cd92/apex-grid-tile-legends-Vantage.jpg' },
+                { name: '席爾', img: 'https://drop-assets.ea.com/images/4Lv7MVV4qMAK4elah1iZoz/10466b756099f26a00aff51cf23bd2f0/apex-grid-tile-legends-Seer.jpg' },
+                { name: '萬塔捷', img: 'https://drop-assets.ea.com/images/6wNJrehz7BfFeKFwWINpCD/e25ce64fad589ca8fee6e4024119cd92/apex-grid-tile-legends-Vantage.jpg' },
                 { name: '雀影', img: 'https://drop-assets.ea.com/images/ZpRorS2mnGb98mIt53sy9/0962732ad880c5f42754776e035316cc/apex-grid-tile-legends-sparrow.jpg' }
             ],
             支援: [
@@ -394,44 +404,58 @@
                 { name: '導管', img: 'https://drop-assets.ea.com/images/4Ksr2ZX6ImduJHxxeYONtU/277537c176c74b951319f92d86f4698e/apex-grid-tile-legends-Conduit.jpg' }
             ],
             控制: [
-                { name: '腐蝕', img: 'https://drop-assets.ea.com/images/30vsaqTmflB9MEo7GTcgXB/96eb6e78a15a275cd7e85040986985f8/apex-grid-tile-legends-Caustic.jpg' },
+                { name: '腐蝕', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/6/64/Caustic_Icon.png' },
                 { name: '華生', img: 'https://drop-assets.ea.com/images/35A7Ebi3AQ5jtXhZlXcgfm/ddc8902fd90e0cf669e9ce4182ab8e1f/apex-grid-tile-legends-Wattson.jpg' },
-                { name: '蘭伯特', img: 'https://drop-assets.ea.com/images/21QdZAxCn7qZWCLNPR4X3C/ec7c5e4cbf7a2aad48702b4fb4103878/apex-grid-tile-legends-Rampart.jpg' },
-                { name: '催化姬', img: 'https://drop-assets.ea.com/images/I01amfukfvzrqbSSg1xQB/6147400ff2102b3ddd5f5c931a374be8/apex-grid-tile-legends-Catalyst.jpg' }
+                { name: '蕾帕特', img: 'https://drop-assets.ea.com/images/21QdZAxCn7qZWCLNPR4X3C/ec7c5e4cbf7a2aad48702b4fb4103878/apex-grid-tile-legends-Rampart.jpg' },
+                { name: '摧化姬', img: 'https://drop-assets.ea.com/images/I01amfukfvzrqbSSg1xQB/6147400ff2102b3ddd5f5c931a374be8/apex-grid-tile-legends-Catalyst.jpg' }
             ]
         };
 
-        const weapons = [
-            { name: 'R-301 卡賓槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f1/R-301_Carbine.png' },
-            { name: 'VK-47 平行', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f1/VK-47_Flatline.png' },
-            { name: '漢姆洛克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/7/74/Hemlok_Burst_AR.png' },
-            { name: '哈柏克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/e/ec/HAVOC_Rifle.png' },
-            { name: '復仇女神', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/b/b8/Nemesis_Burst_AR.png' },
-            { name: 'R-99', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/d/d5/R-99_SMG.png' },
-            { name: '小幫手', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/e/e9/Alternator_SMG.png' },
-            { name: '電能衝鋒槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/6/60/Volt_SMG.png' },
-            { name: 'C.A.R.', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/1/13/C.A.R._SMG.png' },
-            { name: '獵獸', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/b/bf/Prowler_Burst_PDW.png' },
-            { name: '噴火槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f2/M600_Spitfire.png' },
-            { name: '專注輕機槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/8/8c/Devotion_LMG.png' },
-            { name: '暴走', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/2/20/Rampage_LMG.png' },
-            { name: 'L-Star', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/0/01/L-STAR_EMG.png' },
-            { name: 'G7 偵查槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/e/eb/G7_Scout.png' },
-            { name: '30-30 連發槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/8/86/30-30_Repeater.png' },
-            { name: '三重擊', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/d/d9/Triple_Take.png' },
-            { name: '波賽克複合弓', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/0/02/Bocek_Compound_Bow.png' },
-            { name: '長弓', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/4/46/Longbow_DMR.png' },
-            { name: '充能步槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/2/2b/Charge_Rifle.png' },
-            { name: '哨兵', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/9/91/Sentinel.png' },
-            { name: '克萊伯', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f5/Kraber_.50-Cal_Sniper.png' },
-            { name: 'EVA-8', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/9/97/EVA-8_Auto.png' },
-            { name: '和平使者', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/6/64/Peacekeeper.png' },
-            { name: '敖犬', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/c/c9/Mastiff_Shotgun.png' },
-            { name: '莫三比克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/a/ae/Mozambique_Shotgun.png' },
-            { name: 'P2020', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/c/c1/P2020.png' },
-            { name: 'RE-45', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/2/25/RE-45_Auto.png' },
-            { name: '小幫手手槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/0/09/Wingman.png' }
-        ];
+        const weapons = {
+            突擊步槍: [
+                { name: '哈博克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/e/ec/HAVOC_Rifle.png' },
+                { name: '平行步槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f1/VK-47_Flatline.png' },
+                { name: '漢洛', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/7/74/Hemlok_Burst_AR.png' },
+                { name: 'R-301', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f1/R-301_Carbine.png' },
+                { name: '死敵', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/b/b8/Nemesis_Burst_AR.png' }
+            ],
+            衝鋒槍: [
+                { name: '轉換者', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/e/e9/Alternator_SMG.png' },
+                { name: '獵獸', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/b/bf/Prowler_Burst_PDW.png' },
+                { name: 'R-99', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/d/d5/R-99_SMG.png' },
+                { name: '電能衝鋒槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/6/60/Volt_SMG.png' },
+                { name: 'C.A.R.', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/1/13/C.A.R._SMG.png' }
+            ],
+            輕機槍: [
+                { name: '專注輕機槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/8/8c/Devotion_LMG.png' },
+                { name: 'L-Star', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/0/01/L-STAR_EMG.png' },
+                { name: '噴火槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f2/M600_Spitfire.png' },
+                { name: '狂暴', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/2/20/Rampage_LMG.png' }
+            ],
+            神射手: [
+                { name: 'G7斥侯', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/e/eb/G7_Scout.png' },
+                { name: '三重擊', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/d/d9/Triple_Take.png' },
+                { name: '30-30', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/8/86/30-30_Repeater.png' },
+                { name: '博切克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/0/02/Bocek_Compound_Bow.png' }
+            ],
+            狙擊槍: [
+                { name: '充能步槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/2/2b/Charge_Rifle.png' },
+                { name: '長弓', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/4/46/Longbow_DMR.png' },
+                { name: '克莱博', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f5/Kraber_.50-Cal_Sniper.png' },
+                { name: '哨兵', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/9/91/Sentinel.png' }
+            ],
+            手槍: [
+                { name: 'RE-45', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/2/25/RE-45_Auto.png' },
+                { name: 'P2020', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/c/c1/P2020.png' },
+                { name: '小幫手', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/0/09/Wingman.png' }
+            ],
+            霰彈槍: [
+                { name: 'EVA-8', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/9/97/EVA-8_Auto.png' },
+                { name: '獒犬霰彈槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/c/c9/Mastiff_Shotgun.png' },
+                { name: '莫三比克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/a/ae/Mozambique_Shotgun.png' },
+                { name: '和平使者', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/6/64/Peacekeeper.png' }
+            ]
+        };
 
         // 狀態管理
         let enabledLegends = {};
@@ -450,8 +474,11 @@
                     enabledLegends[legend.name] = true;
                 });
             });
-            weapons.forEach(weapon => {
-                enabledWeapons[weapon.name] = true;
+            
+            Object.keys(weapons).forEach(category => {
+                weapons[category].forEach(weapon => {
+                    enabledWeapons[weapon.name] = true;
+                });
             });
 
             // 渲染UI
@@ -502,20 +529,36 @@
             const container = document.getElementById('weaponsContainer');
             container.innerHTML = '';
 
-            weapons.forEach(weapon => {
-                const card = document.createElement('div');
-                card.className = 'item-card weapon-card';
-                if (enabledWeapons[weapon.name]) {
-                    card.classList.add('enabled');
-                }
-                card.onclick = () => toggleWeapon(weapon.name);
+            Object.keys(weapons).forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'role-group';
+                
+                const categoryTitle = document.createElement('div');
+                categoryTitle.className = 'role-title';
+                categoryTitle.textContent = category;
+                categoryDiv.appendChild(categoryTitle);
 
-                card.innerHTML = `
-                    <img src="${weapon.img}" alt="${weapon.name}">
-                    <p>${weapon.name}</p>
-                `;
+                const grid = document.createElement('div');
+                grid.className = 'grid';
 
-                container.appendChild(card);
+                weapons[category].forEach(weapon => {
+                    const card = document.createElement('div');
+                    card.className = 'item-card weapon-card';
+                    if (enabledWeapons[weapon.name]) {
+                        card.classList.add('enabled');
+                    }
+                    card.onclick = () => toggleWeapon(weapon.name);
+
+                    card.innerHTML = `
+                        <img src="${weapon.img}" alt="${weapon.name}">
+                        <p>${weapon.name}</p>
+                    `;
+
+                    grid.appendChild(card);
+                });
+
+                categoryDiv.appendChild(grid);
+                container.appendChild(categoryDiv);
             });
         }
 
@@ -551,8 +594,10 @@
 
         // 全選/取消全選武器
         function selectAllWeapons(enable) {
-            weapons.forEach(weapon => {
-                enabledWeapons[weapon.name] = enable;
+            Object.keys(weapons).forEach(category => {
+                weapons[category].forEach(weapon => {
+                    enabledWeapons[weapon.name] = enable;
+                });
             });
             renderWeapons();
         }
@@ -609,13 +654,13 @@
                     }
 
                     // 減速效果：從快到慢
-                    // 越接近結束，速度越慢
+                    // 越接近結束,速度越慢
                     const speed = Math.max(30, 300 * (1 - progress));
 
                     if (elapsed - lastTickTime > speed) {
-                        // 在最後階段，讓索引逐漸接近目標
+                        // 在最後階段,讓索引逐漸接近目標
                         if (progress > 0.8) {
-                            // 最後20%的時間，確保會停在目標位置
+                            // 最後20%的時間,確保會停在目標位置
                             const remaining = items.length;
                             const stepsToTarget = Math.max(1, Math.floor((1 - progress) * remaining));
                             
@@ -665,7 +710,14 @@
                 });
             });
 
-            const availableWeapons = weapons.filter(w => enabledWeapons[w.name]);
+            const availableWeapons = [];
+            Object.keys(weapons).forEach(category => {
+                weapons[category].forEach(weapon => {
+                    if (enabledWeapons[weapon.name]) {
+                        availableWeapons.push(weapon);
+                    }
+                });
+            });
 
             if (availableLegends.length === 0 || availableWeapons.length < 2) {
                 alert('請至少選擇一個英雄和兩把武器！');
