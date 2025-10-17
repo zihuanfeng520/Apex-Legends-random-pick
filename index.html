@@ -404,7 +404,7 @@
         const weapons = [
             { name: 'R-301 卡賓槍', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f1/R-301_Carbine.png' },
             { name: 'VK-47 平行', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/f/f1/VK-47_Flatline.png' },
-            { name: '漢姆洛克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/7/74/Hemlok_Burst_AR.png' },
+            { name: '漢姆洛克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/7/74/Hemlok_Burst_AR.png/revision/latest?cb=20220617000007' },
             { name: '哈柏克', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/e/ec/HAVOC_Rifle.png' },
             { name: '復仇女神', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/b/b8/Nemesis_Burst_AR.png' },
             { name: 'R-99', img: 'https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/d/d5/R-99_SMG.png' },
@@ -578,10 +578,17 @@
         }
 
         // 轉盤動畫
-        function spinWheel(items, duration, resultId) {
+        function spinWheel(items, baseDuration, resultId) {
             return new Promise((resolve) => {
+                // 先隨機決定最終結果
+                const finalIndex = Math.floor(Math.random() * items.length);
+                const finalItem = items[finalIndex];
+                
+                // 固定轉動時間為3秒
+                const duration = 3000;
+                
                 const startTime = Date.now();
-                let currentIndex = 0;
+                let currentIndex = Math.floor(Math.random() * items.length); // 隨機起始位置
                 let lastTickTime = 0;
                 const resultDiv = document.getElementById(resultId);
 
@@ -590,17 +597,42 @@
                     const progress = elapsed / duration;
 
                     if (progress >= 1) {
-                        resolve(items[currentIndex]);
+                        // 確保最後顯示的是預定的隨機結果
+                        resultDiv.innerHTML = `
+                            <div class="result-display">
+                                <img src="${finalItem.img}" alt="${finalItem.name}">
+                                <p>${finalItem.name}</p>
+                            </div>
+                        `;
+                        resolve(finalItem);
                         return;
                     }
 
+                    // 減速效果：從快到慢
+                    // 越接近結束，速度越慢
                     const speed = Math.max(30, 300 * (1 - progress));
 
                     if (elapsed - lastTickTime > speed) {
-                        currentIndex = (currentIndex + 1) % items.length;
+                        // 在最後階段，讓索引逐漸接近目標
+                        if (progress > 0.8) {
+                            // 最後20%的時間，確保會停在目標位置
+                            const remaining = items.length;
+                            const stepsToTarget = Math.max(1, Math.floor((1 - progress) * remaining));
+                            
+                            // 計算到達目標需要的步數
+                            let nextIndex = currentIndex;
+                            for (let i = 0; i < stepsToTarget; i++) {
+                                nextIndex = (nextIndex + 1) % items.length;
+                                if (nextIndex === finalIndex) break;
+                            }
+                            currentIndex = nextIndex;
+                        } else {
+                            // 前80%隨機跳動
+                            currentIndex = (currentIndex + 1) % items.length;
+                        }
+                        
                         const item = items[currentIndex];
                         
-                        const isWeapon = resultId.includes('weapon');
                         resultDiv.innerHTML = `
                             <div class="result-display spinning">
                                 <img src="${item.img}" alt="${item.name}">
